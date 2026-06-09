@@ -7,8 +7,8 @@
     <style>
         /* --- CSS VARIABLES & THEMING --- */
         :root {
-            --bg-color: #0f172a;
-            --surface-color: #1e293b;
+            --bg-color: #203732;
+            --surface-color: #203732;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent-color: #38bdf8;
@@ -29,7 +29,8 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding-top: 70px; /* Offset for fixed header */
+            padding-top: 70px;
+            overflow-x: hidden;
         }
 
         a {
@@ -71,13 +72,25 @@
             border-radius: 2px;
         }
 
+        /* --- SCROLL ANIMATION INITIAL STATES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- HEADER & NAVIGATION --- */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: #203732;
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
@@ -111,15 +124,33 @@
             color: var(--accent-color);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (SPLIT LAYOUT) --- */
         #hero {
             display: flex;
             align-items: center;
-            min-height: calc(80vh - 70px);
+            min-height: calc(90vh - 70px);
+        }
+
+        .hero-split {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            width: 100%;
         }
 
         .hero-content {
-            max-width: 700px;
+            flex: 1;
+            text-align: left;
+        }
+
+        .hero-visuals {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         .hero-subtitle {
@@ -158,6 +189,41 @@
             transform: translateY(-2px);
             color: var(--bg-color);
         }
+
+        /* --- PROFILE IMAGE IMAGE FRAME --- */
+        .profile-frame {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid var(--surface-color);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--surface-color);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-frame:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-color);
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* GLOBE STYLES REMOVED */
 
         /* --- SKILLS SECTION --- */
         .skills-grid {
@@ -224,7 +290,6 @@
             justify-content: center;
             color: var(--text-muted);
             font-style: italic;
-            /* Replace this background color with an actual <img> tag later if desired */
         }
 
         .project-info {
@@ -301,6 +366,14 @@
 
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
+            .hero-split {
+                flex-direction: column;
+                text-align: center;
+                gap: 3rem;
+            }
+            .hero-content {
+                text-align: center;
+            }
             .hero-title {
                 font-size: 2.5rem;
             }
@@ -317,7 +390,7 @@
 
     <header>
         <div class="container">
-            <div class="logo">DevPortfolio</div>
+            <div class="logo">REBG Portfolio</div>
             <nav>
                 <ul>
                     <li><a href="#hero">Home</a></li>
@@ -331,19 +404,32 @@
 
     <section id="hero">
         <div class="container">
-            <div class="hero-content">
-                <p class="hero-subtitle">Hi, my name is</p>
-                <h1 class="hero-title">Rowen Earl B. Gamueda</h1>
-                <h2 style="font-size: 2rem; color: var(--text-muted); margin-bottom: 1.5rem;">Web & Systems Administrator</h2>
-                <p class="hero-description">
-                    I build, manage, and maintain robust web applications and learning environments. Specializing in content management systems, site architecture, and custom frontend solutions to deliver seamless digital experiences.
-                </p>
-                <a href="#projects" class="btn">View My Work</a>
+            <div class="hero-split">
+                
+                <div class="hero-content">
+                    <p class="hero-subtitle">Hi, my name is</p>
+                    <h1 class="hero-title">Rowen Earl B. Gamueda</h1>
+                    <h2 style="font-size: 2rem; color: var(--text-muted); margin-bottom: 1.5rem;">Website & Systems Administrator</h2>
+                    <p class="hero-description">
+                        I build, manage, and maintain robust web applications and learning environments. Specializing in content management systems, site architecture, and custom frontend solutions to deliver seamless digital experiences.
+                    </p>
+                    <a href="#projects" class="btn">View My Work</a>
+                </div>
+
+                <div class="hero-visuals">
+                    <div class="profile-frame">
+                        <div class="profile-placeholder">
+                            <img src="https://drive.google.com/file/d/1Bb5gO9QSdojjhhXDxR7oDVUd8HwcIa2D/view?usp=sharing" alt="Rowen Portfolio Profile Photo">
+                        </div>
+                    </div>
+
+                    </div>
+
             </div>
         </div>
     </section>
 
-    <section id="skills">
+    <section id="skills" class="reveal">
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
             <div class="skills-grid">
@@ -380,7 +466,7 @@
         </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="reveal">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
@@ -444,7 +530,7 @@
         </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="reveal">
         <div class="container">
             <div class="contact-wrapper">
                 <h2 class="section-title">Get In Touch</h2>
@@ -465,6 +551,28 @@
             <p>&copy; 2026. Built with HTML & CSS. Hosted on GitHub Pages.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const revealElements = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        // Stops observing once shown so it animations only trigger the first time seen
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                threshold: 0.15 // Triggers when 15% of the section enters viewport
+            });
+
+            revealElements.forEach((element) => {
+                observer.observe(element);
+            });
+        });
+    </script>
 
 </body>
 </html>
