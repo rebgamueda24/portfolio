@@ -403,26 +403,6 @@
             font-weight: 600;
         }
 
-        /* Locate near Line 180 (CSS) */
-
-.blob-popup-container {
-    width: 280px;  /* (A) Adjust overall width of the profile visuals */
-    height: 280px; /* (A) Adjust overall height (must match width) */
-    position: relative;
-    /* This handles the green glow effect and base background shape */
-    background: radial-gradient(circle at center, rgba(56, 189, 248, 0.25) 0%, rgba(32, 71, 52, 0) 70%), var(--bg-color);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    
-    /* (B) Controls how defined the 'popping out' edge is. Change 32px to a larger number to hide more. */
-    mask-image: radial-gradient(circle, black 60%, transparent 70%);
-}
-
-.blob-popup-container img {
-    /* (C) Adjust how 'tall' the pop is. A negative margin-top lifts your photo above the container edge. */
-    margin-top: -40px;  /* Raise your head more (e.g., -60px) or less (-20px) */
-    transform: scale(1.15); /* (D) Adjust the size of the pop effect itself */
-}
-
         /* --- FOOTER --- */
         footer {
             padding: 3rem 0;
@@ -509,11 +489,13 @@
                     <a href="#projects" class="btn">View My Work</a>
                 </div>
 
-<div class="hero-visuals">
-    <div class="blob-popup-container">
-        <img src="rowen-id.png" alt="Rowen Earl B. Gamueda Profile Photo">
-    }
-</div>
+                <div class="hero-visuals">
+                    <div class="profile-frame">
+                        <div class="profile-placeholder">
+                            <img src="rowen-id.png" alt="Rowen Portfolio Profile Photo">
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
